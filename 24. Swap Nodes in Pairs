@@ -1,0 +1,28 @@
+/*
+Given a linked list, swap every two adjacent nodes and return its head.
+
+You may not modify the values in the list's nodes, only nodes itself may be changed.
+
+*/
+var swapPairs = function(head) {
+    if(!head || !head.next) return head;
+    
+    let before = null;
+    const start = head.next;
+    
+    while(head && head.next){
+        const next = head.next;
+        const after = head.next.next;
+        
+        head.next = after;
+        next.next = head;
+        
+        if(before){
+            before.next = next;
+        }
+        
+        before = head;
+        head = after;
+    }
+    return start;
+};
