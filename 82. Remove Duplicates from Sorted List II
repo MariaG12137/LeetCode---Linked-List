@@ -1,0 +1,43 @@
+/*
+Given a sorted linked list, delete all nodes that have duplicate numbers, 
+leaving only distinct numbers from the original list.
+
+Return the linked list sorted as well.
+*/
+var deleteDuplicates = function(head) {
+    if(!head){
+        return head;
+    }
+    let dummyHead = new ListNode(null);
+    dummyHead.next = head;
+    let map = new Map();
+    
+    let prev = dummyHead;
+    let next = dummyHead.next;
+    
+    while(next){
+        if(!map.has(next.val)){
+            map.set(next.val,[1]);
+            prev = prev.next;
+        }else{
+            map.get(next.val)[0]++;
+            prev.next = next.next;
+        }
+        next = next.next;
+    }
+    
+    prev = dummyHead;
+    next = dummyHead.next;
+    
+    while(next){
+        if(map.get(next.val)[0]!==1){
+            prev.next = next.next;
+        }else{
+            prev = prev.next;
+        }
+        next = next.next;
+    }
+    
+    return dummyHead.next;
+    
+};
