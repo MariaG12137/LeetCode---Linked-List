@@ -1,0 +1,31 @@
+/*
+Given a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
+
+You should preserve the original relative order of the nodes in each of the two partitions.
+*/
+var partition = function(head, x) {
+    let less = new ListNode(null);
+    let more = new ListNode(null);
+    let startL = less;
+    let startM = more;
+    
+    let curr = head;
+    
+    while(curr){
+        
+        if(curr.val>=x){
+
+            more.next = curr;
+            more = more.next;
+        }else{
+
+            less.next = curr;
+            less = less.next;
+        }
+        curr = curr.next;
+    }
+    more.next = null;
+
+    less.next = startM.next;
+    return startL.next;
+};
