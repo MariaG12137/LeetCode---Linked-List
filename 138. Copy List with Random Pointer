@@ -1,0 +1,24 @@
+/*A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.
+A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.
+*/
+var copyRandomList = function(head) {
+    const map = new Map([[null, null]]);
+    
+    let node = head;
+    
+    while (node) {
+        map.set(node, new Node(node.val, null, null));
+        node = node.next;
+    }
+    
+    node = head;
+    
+    while (node) {
+        const newNode = map.get(node);
+        newNode.next = map.get(node.next);
+        newNode.random = map.get(node.random);
+        node = node.next;
+    }
+
+    return map.get(head);
+};
