@@ -1,0 +1,66 @@
+/*
+You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+*/
+var addTwoNumbers = function(l1, l2) {
+    let n1 = l1;
+    let n2 = l2;
+    let dummy = null;
+    while(n1 || n2){
+        if(!n1){
+            dummy = new ListNode(0);
+            dummy.next = l1;
+            l1 = dummy;
+        }else if(!n2){
+            dummy = new ListNode(0);
+            dummy.next = l2;
+            l2 = dummy;
+            
+        }
+        if(n1){
+            n1 = n1.next;
+        }
+        if(n2){
+            n2 = n2.next;
+        }
+    }
+
+    function add(a,b){
+        if(!a && !b){
+            return [null,0]
+        }
+        if(!a){
+            return [new ListNode(b),0];
+        }
+        if(!b){
+            return [new ListNode(a),0];
+        }
+        let ans = add(a.next, b.next);
+        let incre = null;
+        let value = null;
+        let digit = new ListNode();
+        
+        if(a.val + b.val + ans[1] >=10){
+            incre = 1;
+            value = a.val + b.val+ans[1]-10;
+        }else{
+            incre = 0;
+            value = a.val + b.val+ans[1];
+        }
+        digit.val = value;
+        digit.next = ans[0];
+        return [digit,incre]
+    }
+    let final = add(l1,l2);
+    
+    if(final[1]===0){
+        return final[0];
+    }else{
+        let result = new ListNode(1);
+        result.next = final[0];
+        return result;
+    }
+
+};
