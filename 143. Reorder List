@@ -1,0 +1,33 @@
+/*
+Given a singly linked list L: L0→L1→…→Ln-1→Ln,
+reorder it to: L0→Ln→L1→Ln-1→L2→Ln-2→…
+
+You may not modify the values in the list's nodes, only nodes itself may be changed.
+*/
+
+var reorderList = function(head) {
+    function order(n1){
+        if(!n1){
+            return;
+        }
+        if(!n1.next){
+            return n1;
+        }
+        if(!n1.next.next){
+            return n1;
+        }       
+        let A = n1;
+        let B = n1;
+        let Bprev = n1;
+        n1 = n1.next;
+        while(B.next){
+            Bprev = B;
+            B = B.next;
+        }
+        Bprev.next = null;
+        A.next = B;
+        B.next = order(n1);
+        return A;
+    }
+    order(head)
+};
