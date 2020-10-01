@@ -31,3 +31,32 @@ var reorderList = function(head) {
     }
     order(head)
 };
+====================================================================================================================
+var reorderList = function(head) {
+    if(!head){
+        return head;
+    }
+    
+    let stack = [];
+    let curr = head.next;
+    let index = 0;
+    
+    while(curr){
+        stack.push(curr);
+        curr = curr.next;
+    }
+    
+    node = head;
+    while(stack.length){
+        if(index%2 === 1){
+            node.next = stack.shift();
+        }else{
+            node.next = stack.pop();
+        }
+        index++;
+        node = node.next;
+    }
+    
+    node.next = null;
+
+};
