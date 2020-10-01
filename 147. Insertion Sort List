@@ -1,0 +1,21 @@
+/*
+Sort a linked list using insertion sort.
+*/
+var insertionSortList = function(head) {
+    let newHead = new ListNode(0)
+    while(head){
+        const t = head;
+        head = head.next;
+        let cur = newHead;
+        while(cur){
+            if(!cur.next || t.val <= cur.next.val){
+                let next = cur.next;
+                cur.next = t;
+                t.next = next;
+                break;
+            }
+            cur = cur.next
+        }
+    }
+    return newHead.next
+};
