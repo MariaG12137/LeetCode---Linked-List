@@ -1,0 +1,31 @@
+var splitListToParts = function(root, k) {
+    let len = 0;
+    let length = root;
+    while(length){
+        length = length.next;
+        len++;
+    }
+    let incre = len%k;
+    let size = Math.floor(len/k);
+    let curr = root;
+    let result = [];
+    
+    
+    for(let i=0; i<k; i++){
+        result.push(curr?curr:null)
+
+        for(let j=1; j < size+(incre>0?1:0); j++){
+            if(curr){
+                curr = curr.next;
+            }
+        }
+        if(curr){
+            let next = curr.next;
+            curr.next = null;
+            curr = next;
+        }
+        
+        incre--;
+    }
+    return result;
+};
