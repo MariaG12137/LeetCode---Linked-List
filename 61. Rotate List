@@ -1,0 +1,51 @@
+/*
+Given a linked list, rotate the list to the right by k places, where k is non-negative.
+*/
+var rotateRight = function(head, k) {
+    if(!head || !head.next){
+        return head;
+    }
+    function rotate(node){
+        let prev = null;
+        let curr = node;
+        while(curr.next){
+            prev = curr;
+            curr = curr.next;
+        }
+        prev.next = null;
+        curr.next = node;
+        return node = curr;
+    }
+    while(k>0){
+        head = rotate(head);
+        k--;
+    }
+    return head;
+};
+================================================================================================
+var rotateRight = function(head, k) {
+    //edge cases
+    if(!head || !head.next){
+        return head;
+    }
+    //get length
+    let length = head;
+    let len = 0;
+    while(length){
+        length = length.next;
+        len++
+    }
+    //rotate 'length' times
+    for(let i=0; i<k%len; i++){
+        let curr = head;
+        let prev = curr;
+        while(curr.next){
+            prev = curr;
+            curr = curr.next;
+        }
+        prev.next = null;
+        curr.next = head;
+        head = curr;
+    }
+    return head;
+};
