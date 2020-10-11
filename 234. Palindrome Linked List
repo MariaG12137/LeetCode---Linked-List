@@ -1,0 +1,37 @@
+/*
+Given a singly linked list, determine if it is a palindrome.
+*/
+var isPalindrome = function(head) {
+    if(!head || !head.next){
+        return true;
+    }
+    let first = head;
+    function findMiddle(node){
+        let fast = node;
+        let slow = node;
+        while(fast && fast.next && fast.next.next){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        let second = slow.next;
+        slow.next = null;
+        return second;
+    }
+    
+    let second = findMiddle(first);
+    
+    let result = true;
+    function recur(node){
+        if(!node){
+            return null;
+        }
+        recur(node.next);
+        if(node.val !== first.val){
+            result = false;
+        }
+        first = first.next;
+    }
+    recur(second);
+    return result;
+
+};
