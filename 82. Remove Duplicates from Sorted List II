@@ -41,3 +41,27 @@ var deleteDuplicates = function(head) {
     return dummyHead.next;
     
 };
+=================================================================================================================================================
+var deleteDuplicates = function(head) {
+    let dummy = new ListNode(0);
+    dummy.next = head;
+    let previous = null;
+    let num = null;
+    let prev = dummy;
+    let curr = dummy.next;
+
+    while(curr){
+        if(curr.val !== num){
+            num = curr.val;
+            previous = prev;   
+            prev = curr;
+            curr = curr.next;
+        }else{
+            previous.next = curr.next;
+            curr = curr.next;
+            prev = previous;
+        }
+
+    }
+    return dummy.next;
+};
