@@ -57,3 +57,33 @@ var mergeKLists = function(lists) {
     }
     return result;
 };
+=============================================================================================================================
+var mergeKLists = function(lists) {
+    if(lists.length===0){
+        return null;
+    }
+    
+    let dummy = new ListNode(0);
+    dummy.next = lists[0];
+    
+    for(let i=1; i<lists.length;i++){
+        let prev = dummy;
+        let curr = dummy.next;
+        let p2 = lists[i];
+        while(curr && p2){
+            if(curr.val<p2.val){
+                prev = curr;
+                curr = curr.next;
+            }else{
+                prev.next = p2;
+                p2 = p2.next;
+                prev.next.next = curr;
+                prev = prev.next;
+            }
+        }
+        if(p2){
+            prev.next = p2;
+        }
+    }
+    return dummy.next;
+};
