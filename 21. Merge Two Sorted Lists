@@ -1,0 +1,28 @@
+/*
+Merge two sorted linked lists and return it as a new sorted list. The new list should be made by splicing together the nodes of the first two lists.
+*/
+var mergeTwoLists = function(l1, l2) {
+    if(!l1 || !l2){
+        return l1 || l2;
+    }
+    let dummy = new ListNode(0);
+    dummy.next = l1;
+    let prev = dummy;
+    let curr = dummy.next;
+    while(curr && l2){
+        if(curr.val<l2.val){
+            prev = curr;
+            curr = curr.next;
+        }else{
+            prev.next = l2;
+            l2 = l2.next;
+            prev.next.next = curr;
+            prev = prev.next;
+        }
+    }
+    if(l2){
+        prev.next = l2;
+    }
+   
+    return dummy.next;
+};
